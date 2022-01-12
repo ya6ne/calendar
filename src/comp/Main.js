@@ -1,70 +1,61 @@
+import Input from "./Input";
+import Input2 from "./Input2";
+import Total from "./Total";
+
+
+
 function Main() {
     let date = new Date(),
-    dateDuJour = date.getDate(),
-    d = date.getDay(),
+        dateDuJour = date.getDate(),
+        d = date.getDay(),
+        lundi,
+        mardi,
+        mercredi,
+        jeudi,
+        vendredi,
+        week = ["lundi", "mardi", "mercredi", "jeudi", "vendredi"],
+        today = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-caret-right" viewBox="0 0 16 16">
+        <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
+        </svg>; 
 
-    lundi, mardi , mercredi , jeudi , vendredi,
-    week = ["lundi","mardi","mercredi","jeudi","vendredi"]
+    for (let i = 1; i < 8; i++) {
+        if (d == i) {
+            lundi = dateDuJour + (1 - d);
+            mardi = dateDuJour + (2 - d);
+            mercredi = dateDuJour + (3 - d);
+            jeudi = dateDuJour + (4 - d);
+            vendredi = dateDuJour + (5 - d);
+        }
+    }
 
-    for(let i=1 ; i<8; i++){
-      if(d == i) {
-      lundi = dateDuJour + (1-d)
-      mardi = dateDuJour + (2-d)
-      mercredi = dateDuJour + (3-d)
-      jeudi = dateDuJour +  (4-d)
-      vendredi = dateDuJour + (5-d)
-    }}
+    let html = week.map((x, y, z) => (
+        <tr key={x.toString()}>
+            <td>
+            {d == y + 1 ? today : " "}{x[0].toLocaleUpperCase() + x.slice(1)} {eval(x) + "/" + date.getMonth() + 1 + "/" + date.getFullYear()}
+            </td>
+            <td><Input classe={x +' '+ "matin"} jour={x} /></td>
+            <td><Input2 classe={x +' '+ "aprém"} jour={x}/></td>
+            <td><Total /></td>
+        </tr>
+    ));
 
-
-    
     return (
-        <div className='container'>
-            <div className='row'>
-            <table className="table">
-  <thead className="thead-dark">
-    <tr>
-      <th scope="col">Jour</th>
-      <th scope="col">Matin</th>
-      <th scope="col">Après-midi</th>
-      <th scope="col">Totale (h)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Lundi {lundi+'/'+ date.getMonth() + 1+ '/' + date.getFullYear()}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>Mardi {mardi+'/'+ date.getMonth() + 1+ '/' + date.getFullYear()}</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>Mercredi {mercredi+'/'+ date.getMonth() + 1+ '/' + date.getFullYear()}</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>Jeudi {jeudi+'/'+ date.getMonth() + 1+ '/' + date.getFullYear()}</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>Vendredi {vendredi+'/'+ date.getMonth() + 1+ '/' + date.getFullYear()}</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-  </tbody>
-</table>
+        <div className="container">
+            <div className="row">
+                <table className="table">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th scope="col" className="col-md-2">Jour</th>
+                            <th scope="col">Matin</th>
+                            <th scope="col">Après-midi</th>
+                            <th scope="col" className="col-md-2">Totale (h)</th>
+                        </tr>
+                    </thead>
+                    <tbody>{html}</tbody> 
+                </table>
             </div>
         </div>
-    )
+    );
 }
 
 export default Main;
