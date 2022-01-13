@@ -1,10 +1,13 @@
 import Input from "./Input";
 import Input2 from "./Input2";
 import Total from "./Total";
+import { useState } from 'react'
 
 
 
 function Main() {
+    
+
     let date = new Date(),
         dateDuJour = date.getDate(),
         d = date.getDay(),
@@ -35,7 +38,7 @@ function Main() {
             </td>
             <td><Input classe={x +' '+ "matin"} jour={x} /></td>
             <td><Input2 classe={x +' '+ "aprém"} jour={x}/></td>
-            <td><Total /></td>
+            <td><Total jour={x} /></td>
         </tr>
     ));
 
