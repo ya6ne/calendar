@@ -5,6 +5,8 @@ import { useState } from 'react';
 import Totals from "./Totals";
 import Navbar from "./Navbar";
 import Affiche from "./Affiche";
+import Footer from "./Footer";
+
 
 
 
@@ -73,7 +75,7 @@ function Main() {
                 <Affiche />
             </div>
             <div className="row">
-                footer
+                <Footer />
             </div>
         </div>
     );
