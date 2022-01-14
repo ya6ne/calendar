@@ -1,9 +1,8 @@
 
 import { useEffect, useState } from 'react'
 
-function Total({jour}) {
+function Total({jour,cart , setCart}) {
 
-    const [local, setlocal] = useState(1)
 
     let matin = localStorage.getItem(jour +' matin'+' M'),
     aprem = localStorage.getItem(jour + ' aprém' + ' M')
@@ -17,15 +16,14 @@ function Total({jour}) {
         sum = +aprem
     }
      if(matin < 0) {
-        sum ='🥴'
+        sum ='🥴 Fatigué?'
      } else if (aprem<0){
-        sum ='🥴'
+        sum ='🥴 Fatigué?'
      }
-     
      
     
     return (
-        <div>
+        <div style={{fontWeight:700, color:"green"}}>
             {!isNaN(sum) ? (sum-sum%60)/60 +"h"+(sum%60<10 ? "0"+ sum%60 : sum%60) : sum}
         </div>
     )

@@ -1,19 +1,20 @@
 import { useForm } from "react-hook-form";
 import { useState } from 'react';
 
-function Input2({classe ,jour}){
+function Input2({classe ,jour,cart , setCart}){
     const [local, setlocal] = useState(0)
     const { register, handleSubmit, formState: { errors }} = useForm();
     let aa , bb
     const onSubmit = data => {
         localStorage.setItem(classe, [data.de , data.a]);
-        aa = +data.de.split(':').slice(0,1) * 60  + +data.de.split(':').slice(1)
-        bb = +data.a.split(':').slice(0,1) * 60  + +data.a.split(':').slice(1)
-        localStorage.setItem(classe+' M', bb-aa)
+        aa = +data.de.split(':').slice(0,1) * 60  + +data.de.split(':').slice(1);
+        bb = +data.a.split(':').slice(0,1) * 60  + +data.a.split(':').slice(1);
+        localStorage.setItem(classe+' M', bb-aa);
+        setCart(cart + 1);
     };
     let aprem = localStorage.getItem(jour+' '+ "aprém")
     
-    return (aprem? <div>{"De "+ aprem.split(',')[0] + " à " + aprem.split(',')[1]} <button className="btn-danger" onClick={()=>localStorage.removeItem(jour +' '+ "aprém") & setlocal(local + 1 ) & localStorage.removeItem(jour +' '+ "aprém M")}>Modifier</button></div> :
+    return (aprem? <div>{"De "+ aprem.split(',')[0] + " à " + aprem.split(',')[1]} <button className="btn-danger" onClick={()=>localStorage.removeItem(jour +' '+ "aprém") & setlocal(local + 1 ) & localStorage.removeItem(jour +' '+ "aprém M") & setCart(cart + 1)}>Modifier</button></div> :
         <div>
             <form className="row" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-md-4"><input {...register("de", {required:true})} className="form-control form-control-sm" type="time" placeholder="De" /></div>

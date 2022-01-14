@@ -1,23 +1,25 @@
 import { useForm } from "react-hook-form";
-import { useState } from 'react'
+import { useState } from 'react';
+import Total from "./Total";
 
-function Input({classe ,jour}){
+function Input({classe ,jour,cart , setCart}){
     const [local, setlocal] = useState(0)
 
     const { register, handleSubmit, formState: { errors }} = useForm();
-    let aa , bb , ref
+    let aa , bb
     const onSubmit = data => {
         localStorage.setItem(classe, [data.de , data.a])
         aa = +data.de.split(':').slice(0,1) * 60  + +data.de.split(':').slice(1)
         bb = +data.a.split(':').slice(0,1) * 60  + +data.a.split(':').slice(1)
         localStorage.setItem(classe+' M', bb-aa)
+        setCart(cart + 1)
 
     };
     let matin =localStorage.getItem(jour +' '+ "matin")
     
     
     
-    return (matin? <div>{"De "+ matin.split(',')[0] + " à " + matin.split(',')[1]} <button className="btn-danger" onClick={()=>localStorage.removeItem(jour +' '+ "matin") & setlocal(local + 1 ) & localStorage.removeItem(jour +' '+ "matin M")}>modifier</button></div> :
+    return (matin? <div>{"De "+ matin.split(',')[0] + " à " + matin.split(',')[1]} <button className="btn-danger" onClick={()=>localStorage.removeItem(jour +' '+ "matin") & setlocal(local + 1 ) & localStorage.removeItem(jour +' '+ "matin M") & setCart(cart + 1)}>modifier</button></div> :
         <div>
             <form className="row" onSubmit={handleSubmit(onSubmit)}>
                 <div className="col-md-4"><input {...register("de", {required:true})} className="form-control form-control-sm" type="time" placeholder="De" /></div>
