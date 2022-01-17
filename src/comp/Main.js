@@ -72,7 +72,6 @@ function Main() {
             <div className="row">
                 <Totals />
                 <div className="col-md-4"></div>
-                <Affiche />
             </div>
             <div className="row">
                 <Footer />
